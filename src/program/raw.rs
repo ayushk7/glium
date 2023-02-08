@@ -428,7 +428,7 @@ impl RawProgram {
         }
 
         for elem in buf.elements.iter() {
-            if format.iter().find(|e| e.1 == elem.offset && e.2 == elem.ty)
+            if format.iter().find(|e| e.1 == elem.offset && e.3 == elem.ty)
                             .is_none()
             {
                 return false;
@@ -572,6 +572,8 @@ impl RawProgram {
             fence.insert(&mut ctxt);
         }
 
+        ctxt.state.next_draw_call_id += 1;
+
         Ok(())
     }
 
@@ -614,6 +616,8 @@ impl RawProgram {
         for fence in fences {
             fence.insert(&mut ctxt);
         }
+
+        ctxt.state.next_draw_call_id += 1;
 
         Ok(())
     }
